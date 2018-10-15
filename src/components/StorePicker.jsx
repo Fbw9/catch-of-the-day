@@ -1,16 +1,1 @@
-import React from 'react';
-
-class StorePicker extends React.Component {
-  render() {
-    // Any where else
-    return (
-      <form className="store-selector">
-        <h2>Please Enter A Store</h2>
-        <input type="text" required placeholder="Store Name" />
-        <button type="submit">Visit Store →</button>
-      </form>
-    )
-  }
-}
-
-export default StorePicker;
+import React from 'react';import { getFunName } from '../helpers'class StorePicker extends React.Component {  goToStore = event => {    event.preventDefault();    this.context.router.transitionTo(`store/${this.textInput.value}`)  }  render() {    // Any where else    return (      <form className="store-selector" onSubmit={this.goToStore}>        <h2>Please Enter A Store</h2>        <input type="text" defaultValue={getFunName()} ref={(input) =>         this.textInput = input} />        <button type="submit">Visit Store →</button>      </form>    )  }}StorePicker.contextTypes = {   router: React.PropTypes.object}export default StorePicker;
