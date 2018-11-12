@@ -32,6 +32,12 @@ class App extends React.Component {
     this.setState({ order })
   }
 
+  removeOrder = key => {
+    let order = {...this.state.order}
+    delete order[key]
+    this.setState({ order })
+  }
+
   componentWillMount() {
     this.ref = base.syncState(`${this.props.params.storeId}/fishes`, {
       context: this,
@@ -49,7 +55,7 @@ class App extends React.Component {
             .map(id => <Fish key={id} i={id} item={this.state.fishes[id]} addOrder={this.addOrder} />)}
           </ul>
         </div>
-        <Order fishes={this.state.fishes} order={this.state.order} />
+        <Order fishes={this.state.fishes} order={this.state.order} removeOrder={this.removeOrder} />
         <Inventory addFish={this.addFish} loadSamples={this.loadSamples} />
       </div>
     )
