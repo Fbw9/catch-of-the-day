@@ -12,7 +12,7 @@ class App extends React.Component {
     super();
     this.state = {
       fishes: {},
-      orders: {},
+      order: {},
     }
   }
   addFish = fish => {
@@ -24,6 +24,12 @@ class App extends React.Component {
 
   loadSamples = () => {
     this.setState({ fishes: sampleFishes })
+  }
+
+  addOrder = key => {
+    let order = {...this.state.order}
+    order[key] = order[key] + 1 || 1
+    this.setState({ order })
   }
 
   componentWillMount() {
@@ -40,10 +46,10 @@ class App extends React.Component {
           <Header />
           <ul className="list-of-fishes">
             {Object.keys(this.state.fishes)
-            .map(id => <Fish key={id} item={this.state.fishes[id]} />)}
+            .map(id => <Fish key={id} i={id} item={this.state.fishes[id]} addOrder={this.addOrder} />)}
           </ul>
         </div>
-        <Order />
+        <Order fishes={this.state.fishes} order={this.state.order} />
         <Inventory addFish={this.addFish} loadSamples={this.loadSamples} />
       </div>
     )
